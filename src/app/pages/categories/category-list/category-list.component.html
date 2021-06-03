@@ -1,1 +1,40 @@
-<p>category-list works!</p>
+<nav class="mb-5" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item active">Categorias</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-6">
+    <h1 class="h2">
+      Categorias
+    </h1>
+  </div>
+  <div class="col-6">
+    <a routerLink="new" class="btn btn-success float-end">
+      + Nova Categoria
+    </a>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Categoria</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Lazer</strong><br>
+        <small>Cinema, parque, praia</small>
+      </td>
+      <td>
+        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm me-2">Editar</a>
+        <a class="btn btn-outline-danger btn-sm">Excluir</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
