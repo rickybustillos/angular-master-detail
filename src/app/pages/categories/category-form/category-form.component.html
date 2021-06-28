@@ -9,7 +9,7 @@
 <div class="row mb-4">
   <div class="col-6">
     <h1 class="h2">
-      Formulário de categoria
+      Formulário de categoria {{currentAction}}
     </h1>
   </div>
   <div class="col-6">
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<form>
+<form [formGroup]="categoryForm">
   <div class="card">
     <div class="card-header">
       Informações sobre a categoria
