@@ -8,7 +8,7 @@ import { CategoryService } from '../shared/category.service';
 import { switchMap } from 'rxjs/operators';
 
 import * as toastr from 'toastr';
-import { isInvalid, isValid } from 'src/app/hooks/form-control.hook';
+import { isInvalid, isValid } from 'src/app/helpers/form-control.hook';
 
 @Component({
   selector: 'app-category-form',
