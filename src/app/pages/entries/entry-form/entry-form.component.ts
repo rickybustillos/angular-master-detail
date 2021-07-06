@@ -4,14 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Entry } from '../shared/entry.model';
 import { EntryService } from '../shared/entry.service';
+import { Category } from '../../categories/shared/category.model';
+import { CategoryService } from '../../categories/shared/category.service';
 
 import { switchMap } from 'rxjs/operators';
 
 import * as toastr from 'toastr';
 import { PrimeNGConfig } from 'primeng/api';
 import { isInvalid, isValid } from 'src/app/helpers/form-control.hook';
-import { Category } from '../../categories/shared/category.model';
-import { CategoryService } from '../../categories/shared/category.service';
 
 @Component({
   selector: 'app-entry-form',
@@ -107,7 +107,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
       id: [null],
       name: [null, [Validators.required, Validators.minLength(2)]],
       description: [null],
-      type: ['expense', [Validators.required]],
+      type: ["expense", [Validators.required]],
       amount: [null, [Validators.required]],
       date: [null, [Validators.required]],
       paid: [true, [Validators.required]],

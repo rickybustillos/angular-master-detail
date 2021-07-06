@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { map, catchError, flatMap } from 'rxjs/operators';
+import { map, catchError, mergeMap } from 'rxjs/operators';
+
+import { CategoryService } from '../../categories/shared/category.service';
 
 import { Entry } from './entry.model';
 
@@ -13,7 +15,7 @@ export class EntryService {
 
   private apiPath: string = "api/entries"
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private categoryService: CategoryService) { }
 
   // Função para receber todos os dados do banco
   public getAll(): Observable<Entry[]> {
@@ -35,9 +37,16 @@ export class EntryService {
   }
 
   public create(entry: Entry): Observable<Entry> {
-    return this.http.post(this.apiPath, entry).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToEntry)
+    return this.categoryService.getById(Number(entry.categoryId)).pipe(
+      // Sem o mergeMap iria retornar Observable<Observable<Entry>>
+      mergeMap(category => {
+        entry.category = category;
+
+        return this.http.post(this.apiPath, entry).pipe(
+          catchError(this.handleError),
+          map(this.jsonDataToEntry)
+        )
+      })
     )
   }
 

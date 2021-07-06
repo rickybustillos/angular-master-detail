@@ -33,7 +33,9 @@
         <div class="col-md-2">
           <div class="form-floating">
             <select formControlName="type" type="text" class="form-select {{isInvalid(entryForm.controls.type)}} {{isValid(entryForm.controls.type)}}" id="type" placeholder="Tipo">
-              <option *ngFor="let option of typeOptions" [value]="option.value">{{option.text}}</option>
+              <!-- <option *ngFor="let option of typeOptions" [value]="option.value">{{option.text}}</option> -->
+              <option value="expense">Despesa</option>
+              <option value="revenue">Receita</option>
             </select>
             <label for="type">Tipo</label>
 
@@ -137,3 +139,7 @@
 
   <button [disabled]="submittingForm || entryForm.invalid" type="submit" class="btn btn-primary btn-lg mt-3 float-end">Salvar</button>
 </form>
+
+<pre>
+  {{entryForm.value | json}}
+</pre>
