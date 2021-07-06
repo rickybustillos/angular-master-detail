@@ -1,7 +1,7 @@
 <nav class="mb-5" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/categories">Lançamentos</a></li>
+    <li class="breadcrumb-item"><a routerLink="/entries">Lançamentos</a></li>
     <li class="breadcrumb-item active">{{pageTitle}}</li>
   </ol>
 </nav>
@@ -26,13 +26,29 @@
       Informações sobre o Lançamento
     </div>
     <div class="card-body">
-      <div class="row">
 
-        <!-- Nome do lançamento -->
-        <div class="col-md-4">
+      <div class="row mb-3">
+
+        <!-- Tipo (type) -->
+        <div class="col-md-2">
+          <div class="form-floating">
+            <select formControlName="type" type="text" class="form-select {{isInvalid(entryForm.controls.type)}} {{isValid(entryForm.controls.type)}}" id="type" placeholder="Tipo">
+              <option *ngFor="let option of typeOptions" [value]="option.value">{{option.text}}</option>
+            </select>
+            <label for="type">Tipo</label>
+
+            <div class="invalid-feedback">
+              <div *ngIf="entryForm.get('type')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="entryForm.get('type')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nome -->
+        <div class="col-md-5">
           <div class="form-floating">
             <input formControlName="name" type="text" class="form-control {{isInvalid(entryForm.controls.name)}} {{isValid(entryForm.controls.name)}}" id="name" placeholder="Nome do lançamento">
-            <label for="name">Nome do lançamento*</label>
+            <label for="name">Lançamento*</label>
 
             <div class="invalid-feedback">
               <div *ngIf="entryForm.get('name')?.errors?.required">Dado obrigatório.</div>
@@ -41,7 +57,66 @@
           </div>
         </div>
 
-        <div class="col-md-8">
+        <!-- Valor (amount) -->
+        <div class="col-md-3">
+          <div class="form-floating">
+            <input [imask]="imaskConfig" formControlName="amount" type="text" class="form-control {{isInvalid(entryForm.controls.amount)}} {{isValid(entryForm.controls.amount)}}" id="amount" placeholder="Valor R$">
+            <label for="amount">Valor (R$)</label>
+
+            <div class="invalid-feedback">
+              <div *ngIf="entryForm.get('amount')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="entryForm.get('amount')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data (date) -->
+        <div class="col-md-2">
+          <p-calendar id="date" formControlName="date" inputStyleClass="form-control {{isInvalid(entryForm.controls.date)}} {{isValid(entryForm.controls.date)}}" dataType="string" dateFormat="dd/mm/yy" [showButtonBar]="true">
+          </p-calendar>
+
+          <div class="invalid-feedback">
+            <div *ngIf="entryForm.get('date')?.errors?.required">Dado obrigatório.</div>
+            <div *ngIf="entryForm.get('date')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <!-- Pago/Pendente (paid) -->
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+          <div class="form-floating">
+            <div class="btn-group">
+              <label (click)="entryForm.get('paid')?.setValue(true)" [class.active]="entryForm.get('paid')?.value == true" class="btn btn-outline-info">Pago</label>
+              <label (click)="entryForm.get('paid')?.setValue(false)" [class.active]="entryForm.get('paid')?.value == false" class="btn btn-outline-info">Pendente</label>
+            </div>
+
+            <div class="invalid-feedback">
+              <div *ngIf="entryForm.get('paid')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="entryForm.get('paid')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ID da Categoria (categoryId) -->
+        <div class="col-md-3">
+          <div class="form-floating">
+            <select formControlName="categoryId" type="text" class="form-select {{isInvalid(entryForm.controls.type)}} {{isValid(entryForm.controls.type)}}" id="type" placeholder="ID da Categoria">
+              <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+            </select>
+            <label for="type">ID da Categoria</label>
+
+            <div class="invalid-feedback">
+              <div *ngIf="entryForm.get('categoryId')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="entryForm.get('categoryId')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Descrição -->
+        <div class="col-md-7">
           <div class="form-floating">
             <input formControlName="description" type="text" class="form-control {{isInvalid(entryForm.controls.description)}} {{isValid(entryForm.controls.description)}}" id="description" placeholder="Descrição">
             <label for="description">Descrição</label>
