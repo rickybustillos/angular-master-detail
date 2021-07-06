@@ -1,0 +1,64 @@
+<nav class="mb-5" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/categories">Lançamentos</a></li>
+    <li class="breadcrumb-item active">{{pageTitle}}</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-6">
+    <h1 class="h2">
+      {{pageTitle}}
+    </h1>
+  </div>
+  <div class="col-6">
+    <a routerLink="/entries" class="btn btn-light float-end">
+      <i class="bi-caret-left-fill"></i>
+      Voltar
+    </a>
+  </div>
+</div>
+
+<form [formGroup]="entryForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre o Lançamento
+    </div>
+    <div class="card-body">
+      <div class="row">
+
+        <!-- Nome do lançamento -->
+        <div class="col-md-4">
+          <div class="form-floating">
+            <input formControlName="name" type="text" class="form-control {{isInvalid(entryForm.controls.name)}} {{isValid(entryForm.controls.name)}}" id="name" placeholder="Nome do lançamento">
+            <label for="name">Nome do lançamento*</label>
+
+            <div class="invalid-feedback">
+              <div *ngIf="entryForm.get('name')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="entryForm.get('name')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="form-floating">
+            <input formControlName="description" type="text" class="form-control {{isInvalid(entryForm.controls.description)}} {{isValid(entryForm.controls.description)}}" id="description" placeholder="Descrição">
+            <label for="description">Descrição</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+    <h4 class="alert-heading">Erro no servidor</h4>
+    <small>Ocorreu um erro no lado do servidor, confira algumas informações para depuração:</small>
+    <hr>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+    </ul>
+  </div>
+
+  <button [disabled]="submittingForm || entryForm.invalid" type="submit" class="btn btn-primary btn-lg mt-3 float-end">Salvar</button>
+</form>
