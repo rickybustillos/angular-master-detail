@@ -11,17 +11,18 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
   protected http: HttpClient;
 
-  constructor(protected apiPath: string, protected injector: Injector) {
+  constructor(
+    protected apiPath: string,
+    protected injector: Injector,
+    protected jsonDataToResourceFn: (jsonData: any) => T
+  ) {
     this.http = injector.get(HttpClient);
   }
 
-  // Função para receber todos os dados do banco
   getAll(): Observable<T[]> {
-    // Faz uma requisição GET para o path da API
     return this.http.get(this.apiPath).pipe(
-      // Envia os erros para a variável handleError
       catchError(this.handleError),
-      map(this.jsonDataToResources)
+      map(this.jsonDataToResources.bind(this))
     )
   }
 
@@ -29,15 +30,16 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
     const url = `${this.apiPath}/${id}`;
 
     return this.http.get(url).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToResource)
+      map(this.jsonDataToResource.bind(this)),
+      catchError(this.handleError)
     )
+
   }
 
   create(resource: T): Observable<T> {
     return this.http.post(this.apiPath, resource).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToResource)
+      map(this.jsonDataToResource.bind(this)),
+      catchError(this.handleError)
     )
   }
 
@@ -45,9 +47,9 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
     const url = `${this.apiPath}/${resource.id}`;
 
     return this.http.put(url, resource).pipe(
-      catchError(this.handleError),
       // forçando a devolução do próprio objeto já que o in-memory-db não atualiza os dados
-      map(() => resource)
+      map(() => resource),
+      catchError(this.handleError),
     )
   }
 
@@ -55,20 +57,22 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
     const url = `${this.apiPath}/${id}`;
 
     return this.http.delete(url).pipe(
-      catchError(this.handleError),
-      map(() => null)
+      map(() => null),
+      catchError(this.handleError)
     )
   }
 
   // protected methods
   protected jsonDataToResources(jsonData: any[]): T[] {
     const resources: T[] = [];
-    jsonData.forEach(element => resources.push(element as T));
+    jsonData.forEach(
+      element => resources.push(this.jsonDataToResourceFn(element))
+    );
     return resources;
   }
 
   protected jsonDataToResource(jsonData: any): T {
-    return jsonData as T;
+    return this.jsonDataToResourceFn(jsonData);
   }
 
   protected handleError(error: any): Observable<any> {
