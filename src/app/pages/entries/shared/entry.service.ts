@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 
 
 import { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { catchError, mergeMap } from 'rxjs/operators';
 
 import { BaseResourceService } from '../../../shared/services/base-resource.service';
 import { CategoryService } from '../../categories/shared/category.service';
@@ -18,21 +18,20 @@ export class EntryService extends BaseResourceService<Entry> {
   }
 
   create(entry: Entry): Observable<Entry> {
-    return this.categoryService.getById(Number(entry.categoryId)).pipe(
-      // Sem o mergeMap iria retornar Observable<Observable<Entry>>
-      mergeMap(category => {
-        entry.category = category;
-        return super.create(entry);
-      })
-    )
+    return this.setCategoryAndSendToServer(entry, super.create.bind(this));
   }
 
   update(entry: Entry): Observable<Entry> {
+    return this.setCategoryAndSendToServer(entry, super.update.bind(this));
+  }
+
+  private setCategoryAndSendToServer(entry: Entry, sendFn: any): Observable<any> {
     return this.categoryService.getById(Number(entry.categoryId)).pipe(
       mergeMap(category => {
         entry.category = category;
-        return super.update(entry);
-      })
-    )
+        return sendFn(entry);
+      }),
+      catchError(this.handleError)
+    );
   }
 }
