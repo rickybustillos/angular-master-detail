@@ -2,6 +2,13 @@
   [items]="[{text: 'Lançamentos', link: '/entries'}, {text: pageTitle}]"
 ></app-bread-crumb>
 
+<app-page-header
+  [page-title]="pageTitle"
+  button-text="Voltar"
+  button-link="/entries"
+  button-class="btn-light border"
+></app-page-header>
+
 <div class="row mb-4">
   <div class="col-6">
     <h1 class="h2">
