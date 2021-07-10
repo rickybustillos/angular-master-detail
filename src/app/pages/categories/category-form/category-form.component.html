@@ -1,13 +1,6 @@
-<app-bread-crumb
-  [items]="[{text: 'Categorias', link: '/categories'}, {text: pageTitle}]"
-></app-bread-crumb>
+<app-bread-crumb [items]="[{text: 'Categorias', link: '/categories'}, {text: pageTitle}]"></app-bread-crumb>
 
-<app-page-header
-  [page-title]="pageTitle"
-  button-text="Voltar"
-  button-link="/categories"
-  button-class="btn-light border"
-></app-page-header>
+<app-page-header [page-title]="pageTitle" button-text="Voltar" button-link="/categories" button-class="btn-light border"></app-page-header>
 
 <form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
@@ -24,16 +17,19 @@
             <label for="name">Nome da categoria</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="resourceForm.get('name')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="resourceForm.get('name')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <app-form-field-error [form-control]="resourceForm.get('name')"></app-form-field-error>
             </div>
           </div>
         </div>
 
         <div class="col-md-8">
           <div class="form-floating">
-            <input formControlName="description" type="text" class="form-control" id="description" placeholder="Descrição">
+            <input formControlName="description" type="text" class="form-control {{isInvalid(resourceForm.controls.name)}} {{isValid(resourceForm.controls.name)}}" id="description" placeholder="Descrição">
             <label for="description">Descrição</label>
+
+            <div class="invalid-feedback">
+              <app-form-field-error [form-control]="resourceForm.get('description')"></app-form-field-error>
+            </div>
           </div>
         </div>
       </div>

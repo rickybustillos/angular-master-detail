@@ -1,5 +1,5 @@
 import { OnInit, AfterContentChecked, Injector, Directive } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BaseResourceModel } from '../../models/base-resource.model';
@@ -16,7 +16,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   public isValid = isValid;
 
   public currentAction?: string;
-  public resourceForm!: FormGroup;
+  public resourceForm!: FormGroup | any;
   public pageTitle?: string | undefined;
   public serverErrorMessages?: string[];
   public submittingForm: boolean = false;

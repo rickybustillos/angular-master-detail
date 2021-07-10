@@ -1,27 +1,6 @@
-<app-bread-crumb
-  [items]="[{text: 'Lançamentos', link: '/entries'}, {text: pageTitle}]"
-></app-bread-crumb>
+<app-bread-crumb [items]="[{text: 'Lançamentos', link: '/entries'}, {text: pageTitle}]"></app-bread-crumb>
 
-<app-page-header
-  [page-title]="pageTitle"
-  button-text="Voltar"
-  button-link="/entries"
-  button-class="btn-light border"
-></app-page-header>
-
-<div class="row mb-4">
-  <div class="col-6">
-    <h1 class="h2">
-      {{pageTitle}}
-    </h1>
-  </div>
-  <div class="col-6">
-    <a routerLink="/entries" class="btn btn-light float-end">
-      <i class="bi-caret-left-fill"></i>
-      Voltar
-    </a>
-  </div>
-</div>
+<app-page-header [page-title]="pageTitle" button-text="Voltar" button-link="/entries" button-class="btn-light border"></app-page-header>
 
 <form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
@@ -43,8 +22,7 @@
             <label for="type">Tipo</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="resourceForm.get('type')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="resourceForm.get('type')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <app-form-field-error [form-control]="resourceForm.get('type')"></app-form-field-error>
             </div>
           </div>
         </div>
@@ -56,8 +34,7 @@
             <label for="name">Lançamento*</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="resourceForm.get('name')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="resourceForm.get('name')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <app-form-field-error [form-control]="resourceForm.get('name')"></app-form-field-error>
             </div>
           </div>
         </div>
@@ -69,20 +46,18 @@
             <label for="amount">Valor (R$)</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="resourceForm.get('amount')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="resourceForm.get('amount')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <app-form-field-error [form-control]="resourceForm.get('amount')"></app-form-field-error>
             </div>
           </div>
         </div>
 
         <!-- Data (date) -->
         <div class="col-md-2">
-          <p-calendar id="date" formControlName="date" inputStyleClass="form-control {{isInvalid(resourceForm.controls.date)}} {{isValid(resourceForm.controls.date)}}" dataType="string" dateFormat="dd/mm/yy" [showButtonBar]="true">
+          <p-calendar id="date" formControlName="date" inputStyleClass="form-control {{isInvalid(resourceForm.controls.date)}} {{isValid(resourceForm.controls.date)}}" dataType="string" dateFormat="dd/mm/yy" [showButtonBar]="true" placeholder="Data">
           </p-calendar>
 
           <div class="invalid-feedback">
-            <div *ngIf="resourceForm.get('date')?.errors?.required">Dado obrigatório.</div>
-            <div *ngIf="resourceForm.get('date')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+            <app-form-field-error [form-control]="resourceForm.get('date')"></app-form-field-error>
           </div>
         </div>
 
@@ -99,8 +74,7 @@
             </div>
 
             <div class="invalid-feedback">
-              <div *ngIf="resourceForm.get('paid')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="resourceForm.get('paid')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <app-form-field-error [form-control]="resourceForm.get('paid')"></app-form-field-error>
             </div>
           </div>
         </div>
@@ -108,14 +82,13 @@
         <!-- ID da Categoria (categoryId) -->
         <div class="col-md-3">
           <div class="form-floating">
-            <select formControlName="categoryId" type="text" class="form-select {{isInvalid(resourceForm.controls.type)}} {{isValid(resourceForm.controls.type)}}" id="type" placeholder="ID da Categoria">
+            <select formControlName="categoryId" type="text" class="form-select {{isInvalid(resourceForm.controls.categoryId)}} {{isValid(resourceForm.controls.categoryId)}}" id="categoryId" placeholder="ID da Categoria">
               <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
             </select>
             <label for="type">ID da Categoria</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="resourceForm.get('categoryId')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="resourceForm.get('categoryId')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <app-form-field-error [form-control]="resourceForm.get('categoryId')"></app-form-field-error>
             </div>
           </div>
         </div>
@@ -125,6 +98,10 @@
           <div class="form-floating">
             <input formControlName="description" type="text" class="form-control {{isInvalid(resourceForm.controls.description)}} {{isValid(resourceForm.controls.description)}}" id="description" placeholder="Descrição">
             <label for="description">Descrição</label>
+
+            <div class="invalid-feedback">
+              <app-form-field-error [form-control]="resourceForm.get('description')"></app-form-field-error>
+            </div>
           </div>
         </div>
       </div>
@@ -142,7 +119,3 @@
 
   <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg mt-3 float-end">Salvar</button>
 </form>
-
-<pre>
-  {{resourceForm.value | json}}
-</pre>
