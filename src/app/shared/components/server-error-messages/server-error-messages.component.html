@@ -1,0 +1,8 @@
+<div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+  <h4 class="alert-heading">Erro no servidor</h4>
+  <small>Ocorreu um erro no lado do servidor, confira algumas informações para depuração:</small>
+  <hr>
+  <ul>
+    <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+  </ul>
+</div>
