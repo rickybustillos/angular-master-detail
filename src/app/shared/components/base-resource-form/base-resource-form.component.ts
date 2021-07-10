@@ -17,7 +17,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
 
   public currentAction?: string;
   public resourceForm!: FormGroup;
-  public pageTitle?: string;
+  public pageTitle?: string | undefined;
   public serverErrorMessages?: string[];
   public submittingForm: boolean = false;
 

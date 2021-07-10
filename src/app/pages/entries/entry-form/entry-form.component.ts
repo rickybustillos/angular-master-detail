@@ -89,7 +89,7 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
     return 'Cadastro de novo lançamento';
   }
 
-  protected EditionPageTitle(): string | any {
+  protected editionPageTitle(): string | any {
     const resourceName = this.resource.name || '';
     return `Editando lançamento: ${resourceName}`;
   }

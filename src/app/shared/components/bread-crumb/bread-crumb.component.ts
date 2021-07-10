@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 interface BreadCrumbItem {
-  text: string;
+  text: string | undefined;
   link?: string;
 }
 
