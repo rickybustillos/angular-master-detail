@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<form [formGroup]="entryForm" (submit)="submitForm()">
+<form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre o Lançamento
@@ -32,7 +32,7 @@
         <!-- Tipo (type) -->
         <div class="col-md-2">
           <div class="form-floating">
-            <select formControlName="type" type="text" class="form-select {{isInvalid(entryForm.controls.type)}} {{isValid(entryForm.controls.type)}}" id="type" placeholder="Tipo">
+            <select formControlName="type" type="text" class="form-select {{isInvalid(resourceForm.controls.type)}} {{isValid(resourceForm.controls.type)}}" id="type" placeholder="Tipo">
               <!-- <option *ngFor="let option of typeOptions" [value]="option.value">{{option.text}}</option> -->
               <option value="expense">Despesa</option>
               <option value="revenue">Receita</option>
@@ -40,8 +40,8 @@
             <label for="type">Tipo</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="entryForm.get('type')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="entryForm.get('type')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <div *ngIf="resourceForm.get('type')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="resourceForm.get('type')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
             </div>
           </div>
         </div>
@@ -49,12 +49,12 @@
         <!-- Nome -->
         <div class="col-md-5">
           <div class="form-floating">
-            <input formControlName="name" type="text" class="form-control {{isInvalid(entryForm.controls.name)}} {{isValid(entryForm.controls.name)}}" id="name" placeholder="Nome do lançamento">
+            <input formControlName="name" type="text" class="form-control {{isInvalid(resourceForm.controls.name)}} {{isValid(resourceForm.controls.name)}}" id="name" placeholder="Nome do lançamento">
             <label for="name">Lançamento*</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="entryForm.get('name')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="entryForm.get('name')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <div *ngIf="resourceForm.get('name')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="resourceForm.get('name')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
             </div>
           </div>
         </div>
@@ -62,24 +62,24 @@
         <!-- Valor (amount) -->
         <div class="col-md-3">
           <div class="form-floating">
-            <input [imask]="imaskConfig" formControlName="amount" type="text" class="form-control {{isInvalid(entryForm.controls.amount)}} {{isValid(entryForm.controls.amount)}}" id="amount" placeholder="Valor R$">
+            <input [imask]="imaskConfig" formControlName="amount" type="text" class="form-control {{isInvalid(resourceForm.controls.amount)}} {{isValid(resourceForm.controls.amount)}}" id="amount" placeholder="Valor R$">
             <label for="amount">Valor (R$)</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="entryForm.get('amount')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="entryForm.get('amount')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <div *ngIf="resourceForm.get('amount')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="resourceForm.get('amount')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
             </div>
           </div>
         </div>
 
         <!-- Data (date) -->
         <div class="col-md-2">
-          <p-calendar id="date" formControlName="date" inputStyleClass="form-control {{isInvalid(entryForm.controls.date)}} {{isValid(entryForm.controls.date)}}" dataType="string" dateFormat="dd/mm/yy" [showButtonBar]="true">
+          <p-calendar id="date" formControlName="date" inputStyleClass="form-control {{isInvalid(resourceForm.controls.date)}} {{isValid(resourceForm.controls.date)}}" dataType="string" dateFormat="dd/mm/yy" [showButtonBar]="true">
           </p-calendar>
 
           <div class="invalid-feedback">
-            <div *ngIf="entryForm.get('date')?.errors?.required">Dado obrigatório.</div>
-            <div *ngIf="entryForm.get('date')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+            <div *ngIf="resourceForm.get('date')?.errors?.required">Dado obrigatório.</div>
+            <div *ngIf="resourceForm.get('date')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
           </div>
         </div>
 
@@ -91,13 +91,13 @@
         <div class="col-md-2 d-flex justify-content-center align-items-center">
           <div class="form-floating">
             <div class="btn-group">
-              <label (click)="entryForm.get('paid')?.setValue(true)" [class.active]="entryForm.get('paid')?.value == true" class="btn btn-outline-info">Pago</label>
-              <label (click)="entryForm.get('paid')?.setValue(false)" [class.active]="entryForm.get('paid')?.value == false" class="btn btn-outline-info">Pendente</label>
+              <label (click)="resourceForm.get('paid')?.setValue(true)" [class.active]="resourceForm.get('paid')?.value == true" class="btn btn-outline-info">Pago</label>
+              <label (click)="resourceForm.get('paid')?.setValue(false)" [class.active]="resourceForm.get('paid')?.value == false" class="btn btn-outline-info">Pendente</label>
             </div>
 
             <div class="invalid-feedback">
-              <div *ngIf="entryForm.get('paid')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="entryForm.get('paid')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <div *ngIf="resourceForm.get('paid')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="resourceForm.get('paid')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
             </div>
           </div>
         </div>
@@ -105,14 +105,14 @@
         <!-- ID da Categoria (categoryId) -->
         <div class="col-md-3">
           <div class="form-floating">
-            <select formControlName="categoryId" type="text" class="form-select {{isInvalid(entryForm.controls.type)}} {{isValid(entryForm.controls.type)}}" id="type" placeholder="ID da Categoria">
+            <select formControlName="categoryId" type="text" class="form-select {{isInvalid(resourceForm.controls.type)}} {{isValid(resourceForm.controls.type)}}" id="type" placeholder="ID da Categoria">
               <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
             </select>
             <label for="type">ID da Categoria</label>
 
             <div class="invalid-feedback">
-              <div *ngIf="entryForm.get('categoryId')?.errors?.required">Dado obrigatório.</div>
-              <div *ngIf="entryForm.get('categoryId')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
+              <div *ngIf="resourceForm.get('categoryId')?.errors?.required">Dado obrigatório.</div>
+              <div *ngIf="resourceForm.get('categoryId')?.errors?.minlength">Deve ter no mínimo 2 caracteres.</div>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@
         <!-- Descrição -->
         <div class="col-md-7">
           <div class="form-floating">
-            <input formControlName="description" type="text" class="form-control {{isInvalid(entryForm.controls.description)}} {{isValid(entryForm.controls.description)}}" id="description" placeholder="Descrição">
+            <input formControlName="description" type="text" class="form-control {{isInvalid(resourceForm.controls.description)}} {{isValid(resourceForm.controls.description)}}" id="description" placeholder="Descrição">
             <label for="description">Descrição</label>
           </div>
         </div>
@@ -137,9 +137,9 @@
     </ul>
   </div>
 
-  <button [disabled]="submittingForm || entryForm.invalid" type="submit" class="btn btn-primary btn-lg mt-3 float-end">Salvar</button>
+  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg mt-3 float-end">Salvar</button>
 </form>
 
 <pre>
-  {{entryForm.value | json}}
+  {{resourceForm.value | json}}
 </pre>

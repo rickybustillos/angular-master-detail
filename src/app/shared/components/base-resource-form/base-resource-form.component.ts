@@ -1,4 +1,4 @@
-import { OnInit, AfterContentChecked, Injector, Injectable, Directive } from '@angular/core';
+import { OnInit, AfterContentChecked, Injector, Directive } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
