@@ -1,5 +1,5 @@
-import { OnInit, AfterContentChecked, Injector } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OnInit, AfterContentChecked, Injector, Injectable, Directive } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BaseResourceModel } from '../../models/base-resource.model';
@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs/operators';
 import * as toastr from 'toastr';
 import { isInvalid, isValid } from 'src/app/helpers/form-control.hook';
 
+@Directive()
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
   public isInvalid = isInvalid;
   public isValid = isValid;
