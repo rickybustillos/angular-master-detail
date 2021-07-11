@@ -15,7 +15,7 @@
     <div class="row mb-3">
       <div class="col-md-7">
         <div class="form-floating">
-          <select name="month" id="month" class="form-select">
+          <select #month name="month" id="month" class="form-select">
             <option value="">Selecione um mês</option>
             <option value="1">Janeiro</option>
             <option value="2">Fevereiro</option>
@@ -36,7 +36,7 @@
 
       <div class="col-md-5">
         <div class="form-floating">
-          <select name="year" id="year" class="form-select">
+          <select #year name="year" id="year" class="form-select">
             <option value="">Selecione um ano</option>
             <option value="2016">2016</option>
             <option value="2017">2017</option>
@@ -74,7 +74,7 @@
 
       <div class="card-body">
         <h3 class="card-title">
-          1500
+          {{revenueTotal}}
         </h3>
       </div>
     </div>
@@ -89,7 +89,7 @@
 
       <div class="card-body">
         <h3 class="card-title">
-          500
+          {{expenseTotal}}
         </h3>
       </div>
     </div>
@@ -104,7 +104,7 @@
 
       <div class="card-body">
         <h3 class="card-title">
-          1000
+          {{balance}}
         </h3>
       </div>
     </div>
@@ -112,10 +112,10 @@
 </div>
 
 <div class="row my-5">
-  <div class="col-md-6 text-uppercase">
-    Gráfico de receitas
+  <div class="col-md-6">
+    <p-chart type="bar" [data]="revenueChartData" [options]="chartOptions"></p-chart>
   </div>
   <div class="col-md-6 text-uppercase">
-    Gráfico de despesas
+    <p-chart type="bar" [data]="expenseChartData" [options]="chartOptions"></p-chart>
   </div>
 </div>
