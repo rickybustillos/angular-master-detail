@@ -3,6 +3,8 @@ import { Directive, OnInit } from '@angular/core';
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
 
+import * as toastr from 'toastr';
+
 @Directive()
 export abstract class BaseResourceListComponent<T extends BaseResourceModel> implements OnInit {
 
@@ -22,8 +24,12 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel> imp
 
     if (mustDelete) {
       this.resourceService.delete(Number(resource.id)).subscribe(
-        () => this.resources = this.resources.filter(element => element != resource)),
+        () => { 
+          this.resources = this.resources.filter(element => element != resource);
+          toastr.success('Solicitação processada com sucesso!');
+        },
         () => alert("Erro ao tentar excluir")
+      )
     }
   }
 

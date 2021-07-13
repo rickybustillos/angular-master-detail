@@ -83,8 +83,8 @@ export class ReportsComponent implements OnInit {
   }
 
   private setChartData() {
-    this.revenueChartData = this.getChartData('revenue', 'Gráfico de receitas', '#9CCC65');
-    this.expenseChartData = this.getChartData('expense', 'Gráfico de despesas', '#e03131');
+    this.revenueChartData = this.getChartData('revenue', 'Gráfico de receitas', '#198754');
+    this.expenseChartData = this.getChartData('expense', 'Gráfico de despesas', '#DC3545');
   }
 
   private getChartData(entryType: string, title: string, color: string) {
