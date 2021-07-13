@@ -1,21 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">Finansys</a>
+  <div class="container">
+    <a class="navbar-brand" routerLink="/sistema">Finansys</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/reports">Relatórios</a>
+          <a class="nav-link" routerLink="/sistema/reports">Relatórios</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/entries">Lançamentos</a>
+          <a class="nav-link" routerLink="/sistema/entries">Lançamentos</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/categories">Categorias</a>
+          <a class="nav-link" routerLink="/sistema/categories">Categorias</a>
         </li>
       </ul>
     </div>
+    <button class="btn btn-outline-danger" (click)="logOut()">Sair</button>
   </div>
 </nav>

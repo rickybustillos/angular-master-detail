@@ -8,6 +8,8 @@ import { BaseResourceService } from '../../../shared/services/base-resource.serv
 import { CategoryService } from '../../categories/shared/category.service';
 import { Entry } from './entry.model';
 
+import { environment } from '../../../../environments/environment.prod';
+
 import * as moment from 'moment';
 
 @Injectable({
@@ -16,7 +18,7 @@ import * as moment from 'moment';
 export class EntryService extends BaseResourceService<Entry> {
 
   constructor(protected injector: Injector, private categoryService: CategoryService) {
-    super("api/entries", injector, Entry.fromJson);
+    super(`${environment.apiPath}/entries`, injector, Entry.fromJson);
   }
 
   getByMonthAndYear(month: number, year: number): Observable<Entry[]> {
