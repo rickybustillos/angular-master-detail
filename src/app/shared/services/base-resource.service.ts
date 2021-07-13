@@ -11,7 +11,7 @@ import { Injector } from '@angular/core';
 export abstract class BaseResourceService<T extends BaseResourceModel> {
 
   protected http: HttpClient;
-  token?: string | any = '';
+  token?: string | any;
   private authService!: AuthService;
 
   constructor(
@@ -21,11 +21,11 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   ) {
     this.http = injector.get(HttpClient);
     this.authService = injector.get(AuthService);
+    this.token = this.authService.autenticated(true);
   }
   
   
   getAll(): Observable<T[]> {
-    this.token = this.authService.autenticated(true);
     return this.http.get(this.apiPath, { headers: {'Authorization': this.token} }).pipe(
       catchError(this.handleError),
       map(this.jsonDataToResources.bind(this))
@@ -43,6 +43,8 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   create(resource: T): Observable<T> {
+    console.log(resource);
+    
     return this.http.post(this.apiPath, resource, { headers: {'Authorization': this.token} }).pipe(
       map(this.jsonDataToResource.bind(this)),
       catchError(this.handleError)
